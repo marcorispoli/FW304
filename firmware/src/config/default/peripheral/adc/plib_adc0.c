@@ -106,10 +106,10 @@ void ADC0_Initialize( void )
 
 
     /* positive and negative input pins */
-    ADC0_REGS->ADC_INPUTCTRL = (uint16_t) ADC_POSINPUT_AIN2 | (uint16_t) ADC_NEGINPUT_GND ;
+    ADC0_REGS->ADC_INPUTCTRL = (uint16_t) ADC_POSINPUT_AIN15 | (uint16_t) ADC_NEGINPUT_GND ;
 
     /* Resolution & Operation Mode */
-    ADC0_REGS->ADC_CTRLB = ADC_CTRLB_RESSEL_8BIT | ADC_CTRLB_WINMODE(0) | ADC_CTRLB_FREERUN_Msk;
+    ADC0_REGS->ADC_CTRLB = ADC_CTRLB_RESSEL_10BIT | ADC_CTRLB_WINMODE(0) | ADC_CTRLB_FREERUN_Msk;
 
 
     /* Clear all interrupt flags */

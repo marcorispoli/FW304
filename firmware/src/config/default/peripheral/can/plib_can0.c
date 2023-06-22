@@ -76,8 +76,8 @@ static const can_sidfe_registers_t can0StdFilter[] =
     },
     {
         .CAN_SIDFE_0 = CAN_SIDFE_0_SFT(0UL) |
-                  CAN_SIDFE_0_SFID1(0x104UL) |
-                  CAN_SIDFE_0_SFID2(0x104UL) |
+                  CAN_SIDFE_0_SFID1(0x114UL) |
+                  CAN_SIDFE_0_SFID2(0x114UL) |
                   CAN_SIDFE_0_SFEC(2UL)
     },
 };
@@ -126,17 +126,17 @@ void CAN0_Initialize(void)
     CAN0_REGS->CAN_CCCR |= CAN_CCCR_CCE_Msk;
 
     /* Set Nominal Bit timing and Prescaler Register */
-    CAN0_REGS->CAN_NBTP  = CAN_NBTP_NTSEG2(0UL) | CAN_NBTP_NTSEG1(5UL) | CAN_NBTP_NBRP(2UL) | CAN_NBTP_NSJW(0UL);
+    CAN0_REGS->CAN_NBTP  = CAN_NBTP_NTSEG2(5UL) | CAN_NBTP_NTSEG1(16UL) | CAN_NBTP_NBRP(0UL) | CAN_NBTP_NSJW(5UL);
 
 
     /* Global Filter Configuration Register */
-    CAN0_REGS->CAN_GFC = CAN_GFC_ANFS_REJECT | CAN_GFC_ANFE_REJECT | CAN_GFC_RRFS_Msk | CAN_GFC_RRFE_Msk;
+    CAN0_REGS->CAN_GFC = CAN_GFC_ANFS_REJECT | CAN_GFC_ANFE_REJECT | CAN_GFC_RRFE_Msk;
 
     /* Timestamp Counter Configuration Register */
     CAN0_REGS->CAN_TSCC = CAN_TSCC_TCP(0UL) | CAN_TSCC_TSS_INC;
 
     /* Set the operation mode */
-    CAN0_REGS->CAN_CCCR = (CAN0_REGS->CAN_CCCR & ~CAN_CCCR_INIT_Msk) | CAN_CCCR_TXP_Msk;
+    CAN0_REGS->CAN_CCCR = (CAN0_REGS->CAN_CCCR & ~CAN_CCCR_INIT_Msk);
     while ((CAN0_REGS->CAN_CCCR & CAN_CCCR_INIT_Msk) == CAN_CCCR_INIT_Msk)
     {
         /* Wait for initialization complete */
@@ -396,7 +396,7 @@ CAN_ERROR CAN0_ErrorGet(void)
     if ((CAN0_REGS->CAN_CCCR & CAN_CCCR_INIT_Msk) == CAN_CCCR_INIT_Msk)
     {
         CAN0_REGS->CAN_CCCR |= CAN_CCCR_CCE_Msk;
-        CAN0_REGS->CAN_CCCR = (CAN0_REGS->CAN_CCCR & ~CAN_CCCR_INIT_Msk) | CAN_CCCR_TXP_Msk;
+        CAN0_REGS->CAN_CCCR = (CAN0_REGS->CAN_CCCR & ~CAN_CCCR_INIT_Msk);
         while ((CAN0_REGS->CAN_CCCR & CAN_CCCR_INIT_Msk) == CAN_CCCR_INIT_Msk)
         {
             /* Wait for initialization complete */
@@ -567,7 +567,7 @@ void CAN0_MessageRAMConfigSet(uint8_t *msgRAMConfigBaseAddress)
     (void)offset;
 
     /* Complete Message RAM Configuration by clearing CAN CCCR Init */
-    CAN0_REGS->CAN_CCCR = (CAN0_REGS->CAN_CCCR & ~CAN_CCCR_INIT_Msk) | CAN_CCCR_TXP_Msk;
+    CAN0_REGS->CAN_CCCR = (CAN0_REGS->CAN_CCCR & ~CAN_CCCR_INIT_Msk);
     while ((CAN0_REGS->CAN_CCCR & CAN_CCCR_INIT_Msk) == CAN_CCCR_INIT_Msk)
     {
         /* Wait for configuration complete */

@@ -16,14 +16,15 @@
     #define ext_static extern
 #endif
 
+
+
 /*!
  * \defgroup protocolModule CAN Communication Protocol Module
  *
  * \ingroup applicationModule
  * 
  * 
- * This Module implements the functions 
- * of the PCB/22-304 Software Communication protocol specifications.
+ * This Module implements the functions of the PCB/22-304 Software Communication protocol specifications.
  * 
  * ## Dependencies
  * 
@@ -31,61 +32,33 @@
  * - Shared/CAN/MET_Can_Protocol.c
  * - Shared/CAN/MET_Can_Protocol.h
  * 
- * The application shall define the following labels into 
- * the application.h header file in the project root directory, where the main.c file
- * is located:
  * 
- * + #define MET_CAN_APP_MAJ_REV : Revision Major Number
- * + #define MET_CAN_APP_MIN_REV : Revision Minor Number
- * + #define MET_CAN_APP_SUB_REV : Revision build Number
- * + #define MET_CAN_APP_DEVICE_ID : Application DEVICE CAN Id address
- * + #define MET_CAN_STATUS_REGISTERS : Defines the total number of implemented STATUS registers 
- * + #define MET_CAN_DATA_REGISTERS : Defines the total number of implemented Application DATA registers 
- * + #define MET_CAN_PARAM_REGISTERS :  Defines the total number of implemented PARAMETER registers 
- * 
- * ## Communication setting
- * 
- * The CAN communication is based on the following  characteristics:
- * 
- * - Standard (not Flexible) communication;
- * - Standard frame (11 bit ID);
- * - Baude Rate: 1Mb/s;
- * - Can ID reception address: 0x154;
- * 
- * ## Protocol description
- * 
- * The Application implements the protocol Items 
+ * ## Protocol Communication setting
+ *  
+ * The Application implements the communication protocol  
  * described in the PCB/22-304 Software Communication protocol specifications.
- * 
- * In this chapter it will be briefly described the protocol Items.
- * For details refer to the document specification.
- * 
- * ### Application STATUS Registers
- * 
- * The requested status registers are :
- * 
- * |REGISTER NAME|IDX|DESCRIPTION|
- * |:--|:--|:--|
- * ||
- * 
- * ### DATA Registers
- * 
- * The available DATA registers are:
- *
- * |REGISTER NAME|IDX|DESCRIPTION|
- * |:--|:--|:--|
- * ||
- * 
- * ### PARAMETER Registers
- * 
- * ### COMMAND Register
  * 
  *  @{
  * 
  */
 
     /**
-     * \defgroup moduleInterface CAN Protocol API interface
+     * \defgroup moduleConstants Constants module definition
+     * 
+     * This section describes the module constants
+     * 
+     *  @{
+     */
+        // Can Module Definitions
+        static const unsigned char   MET_CAN_APP_DEVICE_ID    =  0x14 ;     //!< Application DEVICE CAN Id address
+        static const unsigned char   MET_CAN_STATUS_REGISTERS =  0 ;        //!< Defines the total number of implemented STATUS registers 
+        static const unsigned char   MET_CAN_DATA_REGISTERS   =  0 ;        //!< Defines the total number of implemented Application DATA registers 
+        static const unsigned char   MET_CAN_PARAM_REGISTERS  =  0 ;        //!< Defines the total number of implemented PARAMETER registers 
+
+     /// @}   moduleConstants
+
+    /**
+     * \defgroup moduleApiInterface CAN Protocol API interface
      * 
      * This section describes the functions implementing the Protocol module.
      * 
@@ -97,62 +70,67 @@
         /// This is the Main Loop protocol function
         ext void  ApplicationProtocolLoop(void);
 
-    /** @}*/  // moduleInterface
+     /// @}   moduleApiInterface
     
 
-    /** \defgroup STATUS_Register STATUS Registers Definition
+    /** \defgroup StatusRegisterGroup STATUS REGISTERS Definition
      *  
      *  This section describes the implementation of the Application STATUS Registers 
      *  @{
      */
         
-   
+     /// This is the list of the implemented STATUS REGISTERS    
+     typedef enum{
+        RESERVED_STATUS_REGISTER = 0, //!< This is the parameter setting the delay between power On Off events
+     }PROTO_STATUS_t;
+     
+     /// @}   StatusRegisterGroup
 
-    /** @}*/  // STATUS_Register
-
-    /** \defgroup DATA_Register DATA Registers Definition
+     
+    /** \defgroup DataRegisterGroup DATA REGISTERS Definition
      *  
-     *  This section describes the implementation of the Application DATA Registers 
+     *  This section describes the implementation of the Protocol DATA Registers 
      *  @{
      */
 
+         /// This is the list of the implemented DATA REGISTERS    
+         typedef enum{
+            RESERVED_DATA_REGISTER = 0, //!< This is the parameter setting the delay between power On Off events
+         }PROTO_DATA_t;
         
-       
-    /** @}*/  // DATA_Register
+    /// @}   DataRegisterGroup
 
-    /** \defgroup PARAM_Register PARAMETER Registers Definition
+    /** \defgroup ParamRegisterGroup PARAMETER Registers Definition
      *  
      *  This section describes the implementation of the Application PARAMETER Registers 
      *  @{
      */
         
-    /**
-     * Parameter index enumeration
-     */            
-    typedef enum{
-        NO_PARAM = 0, //!< This is the parameter setting the delay between power On Off events
-    }PROTO_PARAMETERS_t;
-    
+        /// This is the list of the implemented PARAMETER REGISTERS        
+        typedef enum{
+            RESERVED_PARAM_REGISTER = 0, //!< This is the parameter setting the delay between power On Off events
+        }PROTO_PARAMETERS_t;
+
+    /// @}   ParamRegisterGroup
         
-    /** @}*/  // PARAM_Register
         
-     /** \defgroup COMMAND_exec COMMAND Execution Definition
+     /** \defgroup CommandGroup COMMAND Execution Definition
      *  
      *  This section describes the Application Command Execution codes
      *  @{
      */
+        
+    /// This is the list of the implemented COMMANDS
     typedef enum{
-      FIRST_COMMAND = 1,    // Replace this with the first command
+      RESERVED_COMMAND = 0,    
     }PROTO_COMMAND_ENUM_t;
     
+    /// This is the list of the implemented ERRORS
     typedef enum{
-        PROTO_COMMAND_NO_ERR = 0,            
+        PROTO_COMMAND_FIRST_ERROR = MET_CAN_COMMAND_APPLICATION_ERRORS,            
     }PROTO_COMMAND_ERROR_ENUM_t;
 
-    ext void Protocol_7280_us_callback(void);
-        
-        
-    /** @}*/  // COMMAND_exec
+     /// @}   CommandGroup
 
         
 

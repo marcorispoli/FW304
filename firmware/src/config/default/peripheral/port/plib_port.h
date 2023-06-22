@@ -159,14 +159,14 @@
 #define uc_ENA_M2_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 10U)) & 0x01U)
 #define uc_ENA_M2_PIN                  PORT_PIN_PA10
 
-/*** Macros for uc_RST_M2 pin ***/
-#define uc_RST_M2_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 11U))
-#define uc_RST_M2_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 11U))
-#define uc_RST_M2_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 11U))
-#define uc_RST_M2_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 11U))
-#define uc_RST_M2_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 11U))
-#define uc_RST_M2_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 11U)) & 0x01U)
-#define uc_RST_M2_PIN                  PORT_PIN_PA11
+/*** Macros for uc_RESET_M2 pin ***/
+#define uc_RESET_M2_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 11U))
+#define uc_RESET_M2_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 11U))
+#define uc_RESET_M2_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 11U))
+#define uc_RESET_M2_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 11U))
+#define uc_RESET_M2_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 11U))
+#define uc_RESET_M2_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 11U)) & 0x01U)
+#define uc_RESET_M2_PIN                  PORT_PIN_PA11
 
 /*** Macros for uc_OPTO1 pin ***/
 #define uc_OPTO1_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 10U))
@@ -303,13 +303,13 @@
 #define uc_OPTO3_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 16U)) & 0x01U)
 #define uc_OPTO3_PIN                  PORT_PIN_PB16
 
-/*** Macros for CAN0_TX pin ***/
-#define CAN0_TX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 22U)) & 0x01U)
-#define CAN0_TX_PIN                  PORT_PIN_PA22
+/*** Macros for uc_CAN_TX0 pin ***/
+#define uc_CAN_TX0_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 22U)) & 0x01U)
+#define uc_CAN_TX0_PIN                  PORT_PIN_PA22
 
-/*** Macros for CAN0_RX pin ***/
-#define CAN0_RX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 23U)) & 0x01U)
-#define CAN0_RX_PIN                  PORT_PIN_PA23
+/*** Macros for uc_CAN_RX0 pin ***/
+#define uc_CAN_RX0_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 23U)) & 0x01U)
+#define uc_CAN_RX0_PIN                  PORT_PIN_PA23
 
 /*** Macros for uc_TEST_PUSH pin ***/
 #define uc_TEST_PUSH_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 23U))
@@ -320,14 +320,14 @@
 #define uc_TEST_PUSH_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 23U)) & 0x01U)
 #define uc_TEST_PUSH_PIN                  PORT_PIN_PB23
 
-/*** Macros for VITALITY_LED pin ***/
-#define VITALITY_LED_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 31U))
-#define VITALITY_LED_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 31U))
-#define VITALITY_LED_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 31U))
-#define VITALITY_LED_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 31U))
-#define VITALITY_LED_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 31U))
-#define VITALITY_LED_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 31U)) & 0x01U)
-#define VITALITY_LED_PIN                  PORT_PIN_PB31
+/*** Macros for VT_LED pin ***/
+#define VT_LED_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 31U))
+#define VT_LED_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 31U))
+#define VT_LED_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 31U))
+#define VT_LED_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 31U))
+#define VT_LED_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 31U))
+#define VT_LED_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 31U)) & 0x01U)
+#define VT_LED_PIN                  PORT_PIN_PB31
 
 /*** Macros for uc_GRID_START pin ***/
 #define uc_GRID_START_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 0U))

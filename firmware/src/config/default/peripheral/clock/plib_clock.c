@@ -48,15 +48,6 @@ static void OSCCTRL_Initialize(void)
 
 static void OSC32KCTRL_Initialize(void)
 {
-    /****************** XOSC32K initialization  ******************************/
-
-    /* Configure 32K External Oscillator */
-    OSC32KCTRL_REGS->OSC32KCTRL_XOSC32K = OSC32KCTRL_XOSC32K_STARTUP(2) | OSC32KCTRL_XOSC32K_ENABLE_Msk | OSC32KCTRL_XOSC32K_CGM(1) | OSC32KCTRL_XOSC32K_EN32K_Msk | OSC32KCTRL_XOSC32K_XTALEN_Msk;
-
-    while(!((OSC32KCTRL_REGS->OSC32KCTRL_STATUS & OSC32KCTRL_STATUS_XOSC32KRDY_Msk) == OSC32KCTRL_STATUS_XOSC32KRDY_Msk))
-    {
-        /* Waiting for the XOSC32K Ready state */
-    }
 
     OSC32KCTRL_REGS->OSC32KCTRL_RTCCTRL = OSC32KCTRL_RTCCTRL_RTCSEL(0);
 }
@@ -141,16 +132,6 @@ static void GCLK2_Initialize(void)
     }
 }
 
-static void GCLK3_Initialize(void)
-{
-    GCLK_REGS->GCLK_GENCTRL[3] = GCLK_GENCTRL_DIV(32) | GCLK_GENCTRL_SRC(4) | GCLK_GENCTRL_GENEN_Msk;
-
-    while((GCLK_REGS->GCLK_SYNCBUSY & GCLK_SYNCBUSY_GENCTRL_GCLK3) == GCLK_SYNCBUSY_GENCTRL_GCLK3)
-    {
-        /* wait for the Generator 3 synchronization */
-    }
-}
-
 static void GCLK4_Initialize(void)
 {
     GCLK_REGS->GCLK_GENCTRL[4] = GCLK_GENCTRL_DIV(2) | GCLK_GENCTRL_SRC(6) | GCLK_GENCTRL_GENEN_Msk;
@@ -169,7 +150,6 @@ void CLOCK_Initialize (void)
     /* Function to Initialize the 32KHz Oscillators */
     OSC32KCTRL_Initialize();
 
-    GCLK3_Initialize();
     DFLL_Initialize();
     GCLK2_Initialize();
     GCLK4_Initialize();
@@ -179,24 +159,10 @@ void CLOCK_Initialize (void)
 
 
 
-    /* Selection of the Generator and write Lock for TC0 TC1 */
-    GCLK_REGS->GCLK_PCHCTRL[9] = GCLK_PCHCTRL_GEN(0x3)  | GCLK_PCHCTRL_CHEN_Msk;
-
-    while ((GCLK_REGS->GCLK_PCHCTRL[9] & GCLK_PCHCTRL_CHEN_Msk) != GCLK_PCHCTRL_CHEN_Msk)
-    {
-        /* Wait for synchronization */
-    }
     /* Selection of the Generator and write Lock for CAN0 */
     GCLK_REGS->GCLK_PCHCTRL[27] = GCLK_PCHCTRL_GEN(0x4)  | GCLK_PCHCTRL_CHEN_Msk;
 
     while ((GCLK_REGS->GCLK_PCHCTRL[27] & GCLK_PCHCTRL_CHEN_Msk) != GCLK_PCHCTRL_CHEN_Msk)
-    {
-        /* Wait for synchronization */
-    }
-    /* Selection of the Generator and write Lock for CAN1 */
-    GCLK_REGS->GCLK_PCHCTRL[28] = GCLK_PCHCTRL_GEN(0x4)  | GCLK_PCHCTRL_CHEN_Msk;
-
-    while ((GCLK_REGS->GCLK_PCHCTRL[28] & GCLK_PCHCTRL_CHEN_Msk) != GCLK_PCHCTRL_CHEN_Msk)
     {
         /* Wait for synchronization */
     }
@@ -216,10 +182,10 @@ void CLOCK_Initialize (void)
     }
 
     /* Configure the AHB Bridge Clocks */
-    MCLK_REGS->MCLK_AHBMASK = 0xfbffff;
+    MCLK_REGS->MCLK_AHBMASK = 0xffffff;
 
     /* Configure the APBA Bridge Clocks */
-    MCLK_REGS->MCLK_APBAMASK = 0x47ff;
+    MCLK_REGS->MCLK_APBAMASK = 0x7ff;
 
     /* Configure the APBD Bridge Clocks */
     MCLK_REGS->MCLK_APBDMASK = 0x180;
